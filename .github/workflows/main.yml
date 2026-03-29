@@ -22,6 +22,4 @@ jobs:
       # Step 4: Run test cases (Courseware requirement: CI runs pytest with green checkmark)
       - name: Run tests
         run: pytest tests/
-      # Step 5: Run evaluation script and generate report (aligned with reports folder requirements)
-      - name: Run evaluation
-        run: python pipelines/eval.py
+
