@@ -1,0 +1,27 @@
+name: CI Check (Aligned with Courseware Requirements)
+# Trigger Rule: Automatically run CI check on every code push and PR creation
+on: [push, pull_request]
+
+jobs:
+  test:
+    # Runner Environment: Cloud server provided by GitHub, no local configuration needed
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out repository code
+      - uses: actions/checkout@v4
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'  # Compatible with courseware recommended environment
+      # Step 3: Install dependencies (pytest, pandas, etc., aligned with code requirements)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pandas scikit-learn joblib --user
+      # Step 4: Run test cases (Courseware requirement: CI runs pytest with green checkmark)
+      - name: Run tests
+        run: pytest tests/
+      # Step 5: Run evaluation script and generate report (aligned with reports folder requirements)
+      - name: Run evaluation
+        run: python pipelines/eval.py
