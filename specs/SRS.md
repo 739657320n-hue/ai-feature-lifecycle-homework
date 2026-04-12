@@ -1,22 +1,223 @@
-# SRS (Software Requirements Specification)
+# SRS_LITE (Software Requirements Specification Lite)
+Traditional Chinese Music AI Music Generation System - Lightweight Requirements Specification
+## Description
+This document serves as the lightweight software requirements specification for a generative AI-based traditional Chinese music generation system. It defines the system's input and output, API interfaces, degradation rules, non-functional requirements, and acceptance criteria, guiding system development, testing, and deployment. All requirements shall be testable and verifiable, catering to the usage scenarios of general users, musicians, and commercial customers.
+---
+
+---
+
 ## 1. Input/Output Schema
-- Define strict fields and types using Pydantic or JSON Schema, with validation enforced in code
-- Example: Specify the format and type of input data, as well as the structure of output results
+This system defines input and output fields in accordance with the JSON Schema specification, clarifying field types, required items, and validation rules. It supports code-level validation (e.g., via Pydantic) to ensure valid input data and standardized output results, meeting the core requirements of traditional Chinese folk music generation.
+
+### 1.1 Input Schema (User Input Specification)
+#### 1.1.1 Input Field Definition (JSON Format)
+```json
+{
+  "user_id": "string (optional, 1-32 characters in length, uniquely identifies the user, e.g., \"user_123456\")",
+  "emotion": "string (required, 1-20 characters in length, supports enumerated values or free text. Enumerated values: cheerful, sad, calm, passionate, nostalgic, festive, distant)",
+  "style": "string (required, 1-30 characters in length, traditional Chinese folk music style. Enumerated values: Guzheng solo, Erhu solo, Bamboo Flute solo, traditional Chinese folk music ensemble, ancient-style folk music, Jiangnan folk tune, Northern Shaanxi folk song, court folk music)",
+  "keywords": "array[string] (required, array length 1-5 elements, each element 1-15 characters in length, describes the music scene/ambiance, e.g., [\"flowing water\",\"bamboo forest\",\"reunion\"])",
+  "duration": "integer (optional, value range 15-60, unit: seconds, default value 30, representing the duration of the generated music)",
+  "instrument": "string (optional, 1-20 characters in length, specifies the lead instrument, e.g., \"Guzheng\",\"Erhu\". If unspecified, the system automatically matches it based on the style)",
+  "output_type": "array[string] (optional, array length 1-2 elements, elements are \"midi\"\"sheet_image\", default value [\"midi\",\"sheet_image\"], specifies the output content)"
+}
+{
+  "request_id": "string (Required, 32 characters in length, uniquely identifies this request, e.g. \"req_87654321abcdef\")",
+  "status": "string (Required, enumeration values: success, failed, degraded, indicating the request execution status)",
+  "midi_url": "string (Optional, returned only when status is success or degraded, directly accessible MIDI file link, valid for 24 hours)",
+  "sheet_image_url": "string (Optional, returned only when status is success or degraded and output_type includes \"sheet_image\", directly accessible visual sheet music image link, valid for 24 hours)",
+  "instrument_used": "string (Required, the main instrument actually used by the system, e.g. \"Guzheng\")",
+  "duration_sec": "integer (Required, actual duration of the generated music, unit: seconds)",
+  "emotion_detected": "string (Required, user emotion recognized by the system, consistent with or similar to the input emotion)",
+  "message": "string (Required, prompt message, displays \"Generation succeeded\" on success, specific reason/description on failure or degradation)",
+  "timestamp": "string (Required, ISO8601 format, request completion time, e.g. \"2024-05-20T14:30:00Z\")"
+}
+---
 
 ## 2. API Spec
-- Stable API endpoints and error codes (can refer to OpenAPI format)
-- Clarify API invocation methods and parameter requirements
+This system provides RESTful-style API interfaces that comply with the OpenAPI 3.0 specification, clearly defining interface endpoints, request methods, parameter requirements, status codes, and error return formats to ensure stable and callable interfaces suitable for usage scenarios of ordinary users, musicians, and commercial customers (simulated interfaces that can be directly used for assignments).
+### 2.1 Core Interface (Music Generation Interface)
+#### 2.1.1 Basic Interface Information
+- Interface Endpoint: `POST /api/v1/music/generate`
+- Request Method: POST
+- Interface Description: Accepts parameters such as user-input emotion, style, and keywords, generates corresponding traditional Chinese music MIDI files and visual sheet music, and returns accessible file links
+- Permission Requirement: No login required (public interface), but subject to rate limiting rules
+
+#### 2.1.2 Request Headers
+| Field Name | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| Content-Type | string | Yes | Fixed value: application/json |
+| User-Agent | string | No | Client identifier, e.g., "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0 Safari/537.36" |
+| X-Request-Id | string | No | Request ID generated by the client for request tracing; if not provided, it will be automatically generated by the system |
+
+#### 2.1.3 Request Body
+- Format: JSON
+- Content: Fully comply with the fields defined in 1.1 Input Schema. Examples are as follows:
+```json
+{
+"user_id": "user_123456",
+"emotion": "cheerful",
+"style": "guzheng solo",
+"keywords": ["running water", "bamboo forest"],
+"duration": 30,
+"instrument": "guzheng",
+"output_type": ["midi", "sheet_image"]
+}
+{
+"request_id": "req_87654321abcdef",
+"status": "success",
+"midi_url": "https://example.com/midi/req_87654321abcdef.mid",
+"sheet_image_url": "https://example.com/sheet/req_87654321abcdef.png",
+"instrument_used": "guzheng",
+"duration_sec": 30,
+"emotion_detected": "cheerful",
+"message": "generation successful",
+"timestamp": "2024-05-20T14:30:00Z"
+}
+{
+"request_id": "req_12345678abcdef",
+"status": "degraded",
+"midi_url": "https://example.com/midi/degraded_12345678abcdef.mid",
+"sheet_image_url": "",
+"instrument_used": "guzheng",
+"duration_sec": 15,
+"emotion_detected": "calm",
+"message": "Request timed out. A simplified version of guzheng solo music has been generated for you",
+"timestamp": "2024-05-20T14:32:00Z"
+}
+{
+"request_id": "req_98765432abcdef",
+"status": "failed",
+"midi_url": "",
+"sheet_image_url": "",
+"instrument_used": "",
+"duration_sec": 0,
+"emotion_detected": "",
+"message": "Input parameter error: the length of the keywords array cannot exceed 5",
+"timestamp": "2024-05-20T14:35:00Z"
+}
+---
 
 ## 3. Degradation Rules
-- Safe behavior under uncertainty (e.g., threshold settings, feature flags, routing rules)
-- Supporting test cases to validate degradation logic
+To ensure the system does not crash or return invalid results under abnormal, uncertain, or high-load scenarios and to safeguard user experience, the following degradation rules are defined. All rules must be verified with corresponding test cases to ensure the degradation logic is executable and verifiable.
 
-## 4. Non-Functional Requirements
-- Latency: p95 target (testable with k6/locust)
-- Availability: uptime SLA (Service Level Agreement)
-- Cost: maximum cost per request
-- Rate limiting: per-user and global limits
+### 3.1 Degradation Trigger Scenarios and Corresponding Rules
+#### 3.1.1 Timeout Degradation (Most Common Scenario)
+- Trigger condition: After a user submits a generation request, the model takes more than 12 seconds (p95 latency threshold) to generate and returns no result;
+- Degradation behavior: Immediately interrupt the current generation task, trigger fallback logic, and generate a fixed condensed version of "Guzheng Solo (Calm Mood, 15 Seconds)";
+- User feedback: Clearly display the message "Request timed out. A condensed version of Guzheng solo music has been generated for you" in the output message, and set the status to degraded;
+- Supporting test case: Simulate a generation timeout scenario (artificially set a model delay of 15 seconds) to verify whether degradation is triggered and whether a valid condensed music version is returned.
+
+#### 3.1.2 Uncertain Input Degradation
+- Trigger condition 1: The user inputs ambiguous emotions (e.g., "both cheerful and sad", "so-so") that the system cannot clearly identify;
+- Degradation behavior: Automatically set the emotion to the default value "calm" and the style to the default value "Chinese folk music ensemble", then continue generating music;
+- User feedback: The message prompts "Emotion input is unclear. The default emotion 'calm' and style 'Chinese folk music ensemble' have been applied".
+
+- Trigger condition 2: The user inputs a non-existent style (e.g., "rock folk music", "electronic folk music") or one not included in the enumeration values;
+- Degradation behavior: Automatically degrade the style to "Chinese folk music ensemble" (basic universal style) and generate music based on the input emotion and keywords;
+- User feedback: The message prompts "The current style is not supported. It has been switched to 'Chinese folk music ensemble' for you".
+
+- Trigger condition 3: All keywords entered by the user are invalid (e.g., "abc123", "###") or empty;
+- Degradation behavior: Ignore invalid keywords, use the default keyword "flowing water", and generate music combined with the input emotion and style;
+- User feedback: The message prompts "Invalid keywords. The default keyword 'flowing water' has been used".
+
+#### 3.1.3 Traffic Overload Degradation
+- Trigger condition 1: The global concurrent request count exceeds 20 times per second (global rate-limiting threshold);
+- Degradation behavior: Disable the output of visual sheet music (sheet_image) and return only MIDI files to reduce system load;
+- User feedback: The message prompts "There are many visitors at the moment. Only MIDI files are temporarily available. Thank you for your understanding".
+
+- Trigger condition 2: The model service load exceeds 80% (CPU/memory usage);
+- Degradation behavior: Force the generated music duration to 15 seconds (condensed version) to reduce model computing pressure;
+- User feedback: The message prompts "The system load is high. A 15-second condensed version of music has been generated for you".
+
+#### 3.1.4 Model Unavailability Degradation
+- Trigger condition: The model service is down, crashed, or fails to respond normally (e.g., returns a 500 error);
+- Degradation behavior: Randomly return a folk music MIDI file matching the user's input emotion from the system's pre-generated "safe music library" (no new music is generated);
+- User feedback: The message prompts "The system is temporarily unable to generate new music. A pre-generated music piece of a similar style has been returned for you";
+- Bottom-line guarantee: The safe music library contains at least 10 folk music pieces of different emotions and styles to ensure available results during degradation.
+
+### 3.2 Degradation Recovery Rules
+- When the conditions triggering degradation are resolved (e.g., timeout issues fixed, traffic reduced, model restored to normal), the system automatically reverts to normal generation logic without manual intervention;
+- During degradation, the system records all degraded requests (request_id, degradation reason, time) for subsequent optimization (e.g., adjusting timeout thresholds, increasing model resources).
+
+### 3.3 Degradation Testing Requirements
+All degradation rules must be equipped with corresponding test cases to ensure the degradation logic takes effect. Test cases shall include:
+1. Timeout degradation test: Simulate timeout scenarios to verify degradation results and user prompts;
+2. Ambiguous input degradation test: Input ambiguous emotions, invalid styles/keywords to verify degradation behavior;
+3. Traffic overload degradation test: Simulate high-concurrency scenarios to verify whether sheet music output is disabled and condensed versions are generated;
+4. Model unavailability degradation test: Simulate model crashes to verify whether pre-generated music is returned.
+---
+
+## 4. Non-Functional Requirements (NFRs)
+Define the non-functional requirements of the system. All requirements shall be testable and quantifiable to ensure controllable system performance, availability, and cost, adapt to commercial service scenarios, and meet the usage needs of ordinary users, musicians, and commercial customers.
+
+### 4.1 Latency
+- Core indicator: p95 latency ≤ 10 seconds (i.e., 95% of requests are generated within 10 seconds);
+- Worst-case scenario: p99 latency ≤ 15 seconds (i.e., 99% of requests are generated within 15 seconds);
+- Testing method: Conduct pressure testing using k6 or Locust tools, simulate 10–50 concurrent requests, and calculate the latency distribution;
+- Optimization requirement: If pressure test results fail to meet the threshold, optimize model inference speed (e.g., model quantization, caching frequently used results).
+
+### 4.2 Availability
+- Service Level Agreement (SLA): Annual system availability ≥ 95%;
+- Quantifiable indicator: Monthly downtime ≤ 3.5 hours (calculated based on 30 days per month);
+- Fault handling: Automatically retry a request once after a system failure; if it still fails, trigger degradation logic. Manual fault recovery time ≤ 1 hour;
+- Testing method: Record daily uptime via the monitoring system, calculate monthly downtime, and verify SLA compliance;
+- Fallback guarantee: Key components (e.g., model services, file storage) adopt redundant deployment to reduce single points of failure.
+
+### 4.3 Cost
+- Cost per request: Server and model inference cost for generating one piece of music (30 seconds, including MIDI and sheet music) ≤ 0.12 RMB;
+- User cost control:
+  1. Ordinary free users: Limited to 5 generations per day; a prompt “Daily generation limit reached. Please try again tomorrow” will appear when exceeded;
+  2. Musician paid users: Pay-per-use at 0.2 RMB per request, no daily limit;
+  3. Commercial customers: Bulk pricing at 0.1 RMB per request, with a minimum order of 1,000 requests;
+- Cost optimization: Control cost per request within the limit by caching frequently generated results of common styles/moods, model quantization, and dynamically adjusting server resources.
+
+### 4.4 Rate Limiting
+To prevent malicious request attacks and avoid excessive system load, hierarchical rate limiting rules are set:
+- Per-user rate limit: Ordinary users are limited to a maximum of 5 requests per minute; paid users are limited to a maximum of 10 requests per minute;
+- Global rate limit: The system processes a maximum of 20 requests per second; a 429 status code is returned for excess requests;
+- Rate limit feedback: When a 429 error is returned, the message displays “Too many requests. Please retry after X seconds” (X is the remaining cooldown time, e.g., “Please retry after 60 seconds”);
+- Testing method: Simulate high-frequency requests from a single user and global high-frequency requests to verify whether rate limiting is triggered and correct prompts are returned.
+
+### 4.5 Other Supplementary NFRs
+- Security: Filter user input (e.g., malicious characters, sensitive information) to prevent injection attacks; encrypt file links to avoid unauthorized access;
+- Scalability: The system supports the subsequent addition of new folk music styles and instrument types without extensive code modifications;
+- Maintainability: Modular code and standardized interfaces to facilitate subsequent iterative optimization and troubleshooting.
+---
 
 ## 5. Acceptance Checklist
-- Each requirement corresponds to a passing test or report
-- No deployment allowed without an acceptance checklist
+All requirements must pass the following acceptance checks before system deployment. Each item must correspond to verifiable test results or reports. Deployment is prohibited without acceptance records.
+
+### 5.1 Input and Output Acceptance (Corresponding to 1. Input/Output Schema)
+- [ ] Input validation works properly: a 400 error is returned with clear prompts when required fields are empty or parameter formats are incorrect;
+- [ ] The system normally receives requests without exceptions when input parameters comply with the rules;
+- [ ] Output results conform to the Output Schema: required fields are fully returned in success, failure, and degradation scenarios;
+- [ ] Output files are usable normally: MIDI files are playable, and visual sheet music images are clear and viewable;
+- [ ] Output message prompts are accurate and scenario-appropriate (success/failure/degradation).
+
+### 5.2 API Interface Acceptance (Corresponding to 2. API Spec)
+- [ ] The core interface (POST /api/v1/music/generate) can be called normally and returns a 200 status code;
+- [ ] Correct status codes are returned for different situations: 400 for parameter errors, 429 for rate limiting, and 500 for server errors;
+- [ ] Error codes correspond to error descriptions for convenient troubleshooting;
+- [ ] Request headers, request bodies, and response bodies comply with specifications without format errors;
+- [ ] Interface rate-limiting rules take effect, and high-frequency requests trigger a 429 error.
+
+### 5.3 Degradation Rule Acceptance (Corresponding to 3. Degradation Rules)
+- [ ] Degradation is triggered in timeout scenarios, returning simplified music and correct prompts;
+- [ ] Degradation is triggered for fuzzy or invalid inputs, and the degradation behavior complies with rules;
+- [ ] Degradation is triggered in high-concurrency scenarios, disabling sheet music output or generating simplified versions;
+- [ ] Degradation is triggered when the model is unavailable, returning pre-generated music;
+- [ ] The system automatically recovers to normal operation once degradation conditions disappear.
+
+### 5.4 Non-Functional Requirement Acceptance (Corresponding to 4. NFRs)
+- [ ] Latency acceptance: in k6/locust stress testing, p95 latency ≤ 10 seconds and p99 latency ≤ 15 seconds;
+- [ ] Availability acceptance: annual system availability ≥ 95%, monthly downtime ≤ 3.5 hours;
+- [ ] Cost acceptance: cost per request ≤ 0.12 CNY, with cost control meeting requirements;
+- [ ] Security acceptance: input filtering is effective, free from injection attack risks, and file links are encrypted;
+- [ ] Scalability acceptance: new traditional Chinese music styles and instrument types can be added normally.
+
+### 5.5 Overall Acceptance Requirements
+- [ ] All acceptance items pass testing with clear test reports or records;
+- [ ] No unresolved critical issues (such as system crashes or generation of invalid results);
+- [ ] Documentation is consistent with actual system behavior without discrepancies;
+- [ ] Test cases cover all core scenarios (normal, boundary, negative, degradation).
