@@ -1,0 +1,742 @@
+[
+  {
+    "data": {
+      "segment_id": "seg_001",
+      "audio_url": "/data/upload/seg_001.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "sad",
+      "bpm": 83,
+      "duration": 12.48,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "sad"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_002",
+      "audio_url": "/data/upload/seg_002.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "calm",
+      "bpm": 94,
+      "duration": 12.76,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "calm"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_003",
+      "audio_url": "/data/upload/seg_003.mp3",
+      "genre_csv": "rock",
+      "mood_csv": "energetic",
+      "bpm": 138,
+      "duration": 14.49,
+      "key": "D_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "rock"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_004",
+      "audio_url": "/data/upload/seg_004.mp3",
+      "genre_csv": "rock",
+      "mood_csv": "happy",
+      "bpm": 136,
+      "duration": 9.13,
+      "key": "F_major"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "rock"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_005",
+      "audio_url": "/data/upload/seg_005.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "energetic",
+      "bpm": 135,
+      "duration": 8.76,
+      "key": "D_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_006",
+      "audio_url": "/data/upload/seg_006.mp3",
+      "genre_csv": "classical",
+      "mood_csv": "energetic",
+      "bpm": 150,
+      "duration": 13.81,
+      "key": "A_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "classical"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_007",
+      "audio_url": "/data/upload/seg_007.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "sad",
+      "bpm": 92,
+      "duration": 9.98,
+      "key": "G_major"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "sad"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_008",
+      "audio_url": "/data/upload/seg_008.mp3",
+      "genre_csv": "rock",
+      "mood_csv": "calm",
+      "bpm": 118,
+      "duration": 11.28,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "rock"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "calm"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_009",
+      "audio_url": "/data/upload/seg_009.mp3",
+      "genre_csv": "pop",
+      "mood_csv": "sad",
+      "bpm": 94,
+      "duration": 13.0,
+      "key": "A_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "pop"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "sad"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_010",
+      "audio_url": "/data/upload/seg_010.mp3",
+      "genre_csv": "classical",
+      "mood_csv": "happy",
+      "bpm": 132,
+      "duration": 13.06,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "classical"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_011",
+      "audio_url": "/data/upload/seg_011.mp3",
+      "genre_csv": "classical",
+      "mood_csv": "happy",
+      "bpm": 149,
+      "duration": 14.91,
+      "key": "D_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "classical"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_012",
+      "audio_url": "/data/upload/seg_012.mp3",
+      "genre_csv": "rock",
+      "mood_csv": "energetic",
+      "bpm": 160,
+      "duration": 8.53,
+      "key": "A_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "rock"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_013",
+      "audio_url": "/data/upload/seg_013.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "happy",
+      "bpm": 160,
+      "duration": 8.37,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_014",
+      "audio_url": "/data/upload/seg_014.mp3",
+      "genre_csv": "pop",
+      "mood_csv": "calm",
+      "bpm": 150,
+      "duration": 14.12,
+      "key": "C_major"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "pop"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "calm"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_015",
+      "audio_url": "/data/upload/seg_015.mp3",
+      "genre_csv": "classical",
+      "mood_csv": "happy",
+      "bpm": 153,
+      "duration": 10.47,
+      "key": "A_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "classical"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_016",
+      "audio_url": "/data/upload/seg_016.mp3",
+      "genre_csv": "jazz",
+      "mood_csv": "energetic",
+      "bpm": 91,
+      "duration": 12.28,
+      "key": "C_major"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "jazz"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_017",
+      "audio_url": "/data/upload/seg_017.mp3",
+      "genre_csv": "pop",
+      "mood_csv": "happy",
+      "bpm": 140,
+      "duration": 14.18,
+      "key": "D_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "pop"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_018",
+      "audio_url": "/data/upload/seg_018.mp3",
+      "genre_csv": "pop",
+      "mood_csv": "energetic",
+      "bpm": 122,
+      "duration": 8.12,
+      "key": "E_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "pop"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "energetic"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_019",
+      "audio_url": "/data/upload/seg_019.mp3",
+      "genre_csv": "rock",
+      "mood_csv": "calm",
+      "bpm": 141,
+      "duration": 10.28,
+      "key": "F_major"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "rock"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "calm"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "data": {
+      "segment_id": "seg_020",
+      "audio_url": "/data/upload/seg_020.mp3",
+      "genre_csv": "pop",
+      "mood_csv": "happy",
+      "bpm": 121,
+      "duration": 14.0,
+      "key": "D_minor"
+    },
+    "predictions": [
+      {
+        "result": [
+          {
+            "from_name": "genre",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "pop"
+              ]
+            }
+          },
+          {
+            "from_name": "mood",
+            "to_name": "audio",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "happy"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

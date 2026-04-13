@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-04-13T16:25:36.922035",
+  "total_tests": 14,
+  "passed_tests": 14,
+  "failed_tests": 0,
+  "test_results": {
+    "passed": [
+      "test_01_csv_file_exists",
+      "test_02_jsonl_file_exists",
+      "test_03_csv_format_correct",
+      "test_04_no_missing_values",
+      "test_05_segment_id_format",
+      "test_06_no_duplicate_segment_ids",
+      "test_07_cross_file_consistency",
+      "test_08_note_sequence_validity",
+      "test_09_genre_distribution",
+      "test_10_bpm_range_validity",
+      "test_11_duration_distribution",
+      "test_12_splits_exist_and_valid",
+      "test_13_no_data_leakage",
+      "test_14_feature_value_ranges"
+    ],
+    "failed": []
+  }
+}
