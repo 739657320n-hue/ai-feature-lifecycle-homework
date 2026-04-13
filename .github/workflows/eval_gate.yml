@@ -26,7 +26,7 @@ jobs:
       # Step 3: Install dependencies
       - name: Install Python Dependencies
         run: |
-          pip install pyyaml
+          pip install pyyaml pandas
           echo "Dependencies installed for simulation"
 
       # Step 4: Create golden set
