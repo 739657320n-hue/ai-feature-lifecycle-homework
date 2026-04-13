@@ -1,0 +1,38 @@
+<!-- Label Studio 配置示例 - 音乐片段标注 -->
+<View>
+  <!-- 音频播放器 -->
+  <Audio name="audio" value="$audio" />
+
+  <!-- 流派标注 -->
+  <Choices name="genre" toName="audio" choice="single">
+    <Choice value="pop" />
+    <Choice value="classical" />
+    <Choice value="jazz" />
+    <Choice value="rock" />
+    <Choice value="electronic" />
+    <Choice value="folk" />
+  </Choices>
+
+  <!-- 情绪标注 -->
+  <Choices name="mood" toName="audio" choice="single">
+    <Choice value="happy" />
+    <Choice value="sad" />
+    <Choice value="calm" />
+    <Choice value="energetic" />
+    <Choice value="romantic" />
+    <Choice value="mysterious" />
+  </Choices>
+
+  <!-- 音乐质量评分 -->
+  <Rating name="quality" toName="audio" maxRating="5" />
+
+  <!-- 问题标记 -->
+  <Choices name="issues" toName="audio" choice="multiple">
+    <Choice value="audio_quality" />
+    <Choice value="label_uncertain" />
+    <Choice value="metadata_error" />
+  </Choices>
+
+  <!-- 注释区域 -->
+  <TextArea name="comments" toName="audio" />
+</View>

@@ -1,0 +1,122 @@
+[
+  {
+    "segment_id": "seg_001",
+    "expected_file": "seg_001.mp3",
+    "local_path": "./data/upload/seg_001.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_001.mp3"
+  },
+  {
+    "segment_id": "seg_002",
+    "expected_file": "seg_002.mp3",
+    "local_path": "./data/upload/seg_002.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_002.mp3"
+  },
+  {
+    "segment_id": "seg_003",
+    "expected_file": "seg_003.mp3",
+    "local_path": "./data/upload/seg_003.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_003.mp3"
+  },
+  {
+    "segment_id": "seg_004",
+    "expected_file": "seg_004.mp3",
+    "local_path": "./data/upload/seg_004.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_004.mp3"
+  },
+  {
+    "segment_id": "seg_005",
+    "expected_file": "seg_005.mp3",
+    "local_path": "./data/upload/seg_005.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_005.mp3"
+  },
+  {
+    "segment_id": "seg_006",
+    "expected_file": "seg_006.mp3",
+    "local_path": "./data/upload/seg_006.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_006.mp3"
+  },
+  {
+    "segment_id": "seg_007",
+    "expected_file": "seg_007.mp3",
+    "local_path": "./data/upload/seg_007.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_007.mp3"
+  },
+  {
+    "segment_id": "seg_008",
+    "expected_file": "seg_008.mp3",
+    "local_path": "./data/upload/seg_008.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_008.mp3"
+  },
+  {
+    "segment_id": "seg_009",
+    "expected_file": "seg_009.mp3",
+    "local_path": "./data/upload/seg_009.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_009.mp3"
+  },
+  {
+    "segment_id": "seg_010",
+    "expected_file": "seg_010.mp3",
+    "local_path": "./data/upload/seg_010.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_010.mp3"
+  },
+  {
+    "segment_id": "seg_011",
+    "expected_file": "seg_011.mp3",
+    "local_path": "./data/upload/seg_011.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_011.mp3"
+  },
+  {
+    "segment_id": "seg_012",
+    "expected_file": "seg_012.mp3",
+    "local_path": "./data/upload/seg_012.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_012.mp3"
+  },
+  {
+    "segment_id": "seg_013",
+    "expected_file": "seg_013.mp3",
+    "local_path": "./data/upload/seg_013.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_013.mp3"
+  },
+  {
+    "segment_id": "seg_014",
+    "expected_file": "seg_014.mp3",
+    "local_path": "./data/upload/seg_014.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_014.mp3"
+  },
+  {
+    "segment_id": "seg_015",
+    "expected_file": "seg_015.mp3",
+    "local_path": "./data/upload/seg_015.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_015.mp3"
+  },
+  {
+    "segment_id": "seg_016",
+    "expected_file": "seg_016.mp3",
+    "local_path": "./data/upload/seg_016.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_016.mp3"
+  },
+  {
+    "segment_id": "seg_017",
+    "expected_file": "seg_017.mp3",
+    "local_path": "./data/upload/seg_017.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_017.mp3"
+  },
+  {
+    "segment_id": "seg_018",
+    "expected_file": "seg_018.mp3",
+    "local_path": "./data/upload/seg_018.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_018.mp3"
+  },
+  {
+    "segment_id": "seg_019",
+    "expected_file": "seg_019.mp3",
+    "local_path": "./data/upload/seg_019.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_019.mp3"
+  },
+  {
+    "segment_id": "seg_020",
+    "expected_file": "seg_020.mp3",
+    "local_path": "./data/upload/seg_020.mp3",
+    "hosted_url": "http://localhost:8080/data/upload/seg_020.mp3"
+  }
+]

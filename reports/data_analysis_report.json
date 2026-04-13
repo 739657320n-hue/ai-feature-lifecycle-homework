@@ -1,0 +1,43 @@
+{
+  "data_overview": {
+    "total_segments": 20,
+    "total_features": 45
+  },
+  "genre_distribution": {
+    "jazz": 6,
+    "rock": 5,
+    "pop": 5,
+    "classical": 4
+  },
+  "mood_distribution": {
+    "happy": 7,
+    "energetic": 6,
+    "calm": 4,
+    "sad": 3
+  },
+  "key_distribution": {
+    "E_minor": 6,
+    "D_minor": 5,
+    "A_minor": 4,
+    "F_major": 2,
+    "C_major": 2,
+    "G_major": 1
+  },
+  "statistics": {
+    "duration": {
+      "min": 8.12,
+      "max": 14.91,
+      "mean": 11.700500000000002
+    },
+    "bpm": {
+      "min": 83,
+      "max": 160,
+      "mean": 127.95
+    }
+  },
+  "note_sequence_stats": {
+    "avg_notes_per_segment": 76.0,
+    "min_notes": 24,
+    "max_notes": 177
+  }
+}
