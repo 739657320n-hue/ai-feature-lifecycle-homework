@@ -1,0 +1,11 @@
+{
+  "description": "Golden set for HW4 evaluation",
+  "num_samples": 20,
+  "genres": [
+    "pop",
+    "classical",
+    "jazz",
+    "rock"
+  ],
+  "samples_per_genre": 5
+}

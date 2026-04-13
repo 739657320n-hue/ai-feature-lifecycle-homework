@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-04-13T22:21:41.469123",
+  "results": {
+    "baseline": {
+      "model_type": "random_generator",
+      "training_time_sec": 0.5,
+      "final_loss": null,
+      "parameters": 0,
+      "status": "ready"
+    },
+    "transformer": {
+      "model_type": "transformer",
+      "training_time_sec": 2.0,
+      "final_loss": 0.537422737751896,
+      "loss_history": [
+        2.0282810179091637,
+        1.7843601141640337,
+        1.5141839732402445,
+        1.264566321799945,
+        1.1265715125492157,
+        0.8993083781750512,
+        0.9016532017031655,
+        0.6972067570512593,
+        0.683566280512695,
+        0.537422737751896
+      ],
+      "parameters": 12800,
+      "status": "trained"
+    },
+    "comparison": {
+      "speed_ratio": 4.0,
+      "transformer_better": true
+    }
+  },
+  "environment": {
+    "python_version": "3.10.0",
+    "simulation": true
+  }
+}

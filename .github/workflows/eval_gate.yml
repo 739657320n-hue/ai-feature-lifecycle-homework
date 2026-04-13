@@ -1,0 +1,80 @@
+name: Music Generation - Evaluation Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  evaluate-models:
+    runs-on: ubuntu-latest
+    name: Evaluate Music Generation Models
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Python
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # Step 3: Install dependencies
+      - name: Install Python Dependencies
+        run: |
+          pip install pyyaml pandas pathlib
+          echo "Dependencies installed for simulation"
+
+      # Step 4: Create golden set
+      - name: Create Golden Set
+        run: |
+          echo "Creating golden set for evaluation..."
+          python data/create_golden_set.py
+
+      # Step 5: Run evaluation gate
+      - name: Run Evaluation Gate
+        run: |
+          echo "Running model evaluation gate..."
+          python pipelines/eval_gate.py
+
+      # Step 6: Upload evaluation report
+      - name: Upload Evaluation Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-report
+          path: |
+            reports/evaluation_results.json
+            data/golden_set/
+
+      # Step 7: Generate summary
+      - name: Generate Evaluation Summary
+        if: always()
+        run: |
+          echo "EVALUATION GATE SUMMARY" > summary.txt
+          echo "=======================" >> summary.txt
+          echo "Date: $(date)" >> summary.txt
+          echo "Workflow: ${{ github.workflow }}" >> summary.txt
+          echo "Run ID: ${{ github.run_id }}" >> summary.txt
+          echo "" >> summary.txt
+          
+          if [ -f "reports/evaluation_results.json" ]; then
+            echo "Evaluation completed successfully." >> summary.txt
+            echo "Results saved to reports/evaluation_results.json" >> summary.txt
+          else
+            echo "Evaluation failed to produce results." >> summary.txt
+          fi
+          
+          cat summary.txt
+
+      # Step 8: Upload summary
+      - name: Upload Summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-summary
+          path: summary.txt
