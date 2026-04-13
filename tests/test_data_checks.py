@@ -23,9 +23,9 @@ class TestDataQuality:
         print("=" * 60)
 
         # 加载数据
-        cls.csv_path = Path("../data/raw/audio_features.csv")
-        cls.jsonl_path = Path("../data/raw/note_sequences.jsonl")
-        cls.splits_dir = Path("../data/splits")
+        cls.csv_path = Path(__file__).parent.parent / "data" / "raw"/"audio_features.csv"
+        cls.jsonl_path = Path(__file__).parent.parent / "data" / "raw" / "note_sequences.jsonl"
+        cls.splits_dir = Path(__file__).parent.parent / "data" / "splits"
 
         cls.df = pd.read_csv(cls.csv_path)
         cls.segment_ids = cls.df["segment_id"].tolist()
