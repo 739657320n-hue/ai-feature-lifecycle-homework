@@ -1,4 +1,4 @@
-name: Music Generation - HW3 Data Pipeline
+name: Music Generation - Data Pipeline
 
 on:
   push:
