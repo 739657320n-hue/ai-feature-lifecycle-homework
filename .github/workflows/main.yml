@@ -1,25 +1,57 @@
-name: CI Check (Aligned with Courseware Requirements)
-# Trigger Rule: Automatically run CI check on every code push and PR creation
-on: [push, pull_request]
+name: Music Generation - HW3 Data Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test:
-    # Runner Environment: Cloud server provided by GitHub, no local configuration needed
+  data-pipeline:
     runs-on: ubuntu-latest
+    
     steps:
-      # Step 1: Check out repository code
-      - uses: actions/checkout@v4
-      # Step 2: Set up Python environment
-      - name: Set up Python
+      # Step 1: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      # Step 2: Setup Python
+      - name: Setup Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'  # Compatible with courseware recommended environment
-      # Step 3: Install dependencies (pytest, pandas, etc., aligned with code requirements)
-      - name: Install dependencies
+          python-version: "3.10"
+      
+      # Step 3: Install dependencies
+      - name: Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest pandas scikit-learn joblib --user
-      # Step 4: Run test cases (Courseware requirement: CI runs pytest with green checkmark)
-      - name: Run tests
-        run: pytest tests/
-
+          pip install pandas numpy pytest
+      
+      # Step 4: Generate sample data (20 music segments)
+      - name: Generate Sample Data
+        run: |
+          echo "Generating 20 music segments..."
+          python data/generate_music_data.py
+      
+      # Step 5: Run data quality checks
+      - name: Run Data Quality Tests
+        run: |
+          echo "Running data quality checks..."
+          python tests/test_data_checks.py
+      
+      # Step 6: Upload data as artifact
+      - name: Upload Data Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hw3-data-artifacts
+          path: |
+            data/raw/audio_features.csv
+            data/raw/note_sequences.jsonl
+            data/splits/
+      
+      # Step 7: Upload test report
+      - name: Upload Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/
