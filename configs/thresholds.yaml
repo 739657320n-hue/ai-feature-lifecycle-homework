@@ -1,0 +1,41 @@
+# Evaluation thresholds for music generation models
+
+absolute:
+  # Generation speed (milliseconds for 10-second segment)
+  generation_speed_ms:
+    max: 2000  # Maximum 2 seconds
+    tolerance: 500  # Allow 0.5 seconds more
+
+  # Structure score (0-1)
+  structure_score:
+    min: 0.6  # Minimum acceptable
+    tolerance: 0.1  # Allow 0.1 less
+
+  # Style consistency (0-1)
+  style_consistency:
+    min: 0.5  # Minimum acceptable
+    tolerance: 0.1  # Allow 0.1 less
+
+relative:
+  # Improvement over baseline (as ratio)
+  structure_score:
+    improvement: 0.2  # 20% better than baseline
+
+  style_consistency:
+    improvement: 0.3  # 30% better than baseline
+
+  # No regression in speed
+  generation_speed_ms:
+    no_regression: true  # Should not be slower than baseline
+
+# Golden set evaluation
+golden_set:
+  minimum_samples: 20
+  required_genres: ["pop", "classical", "jazz", "rock"]
+  per_genre_samples: 5
+
+# CI/CD behavior
+ci:
+  on_failure: "warn"  # warn, block, or continue
+  report_format: "json"
+  artifact_retention_days: 7
