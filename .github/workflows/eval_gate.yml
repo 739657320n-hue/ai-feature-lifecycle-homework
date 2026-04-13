@@ -39,7 +39,7 @@ jobs:
       - name: Run Evaluation Gate
         run: |
           echo "Running model evaluation gate..."
-          python evaluation/eval_gate.py
+          python pipelines/eval_gate.py
 
       # Step 6: Upload evaluation report
       - name: Upload Evaluation Report

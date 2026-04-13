@@ -1,4 +1,4 @@
-# pipelines/eval.py
+# pipelines/eval_gate.py
 # AI Feature Evaluation Script, Aligned with Courseware Pipeline Requirements
 import pandas as pd
 import joblib
