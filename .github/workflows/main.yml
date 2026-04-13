@@ -2,9 +2,9 @@ name: Music Generation - HW3 Data Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev-homework ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, dev-homework ]
 
 jobs:
   data-pipeline:
