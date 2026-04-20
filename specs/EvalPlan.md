@@ -6,7 +6,7 @@
 | Metric | Description | Target | Calculation (Simulated) |
 |--------|-------------|---------|-------------------------|
 | **Generation Speed** | Time to generate 10-second music | < 2s | Random normal ~1.5s ± 0.3s |
-| **Structure Score** | Musical structure合理性 | > 0.7 | Random normal ~0.75 ± 0.15 |
+| **Structure Score** | Musical structure | > 0.7 | Random normal ~0.75 ± 0.15 |
 | **Style Consistency** | Match to target genre | > 0.6 | Random normal ~0.65 ± 0.1 |
 
 ### 1.2 Secondary Metrics (Simulated)
