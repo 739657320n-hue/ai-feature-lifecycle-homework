@@ -1,0 +1,7 @@
+{
+  "fad": 2.5,
+  "p99_latency_ms": 1800,
+  "clap_similarity": 0.8,
+  "mean_output_duration_s": 30.2,
+  "silence_ratio": 0.01
+}
