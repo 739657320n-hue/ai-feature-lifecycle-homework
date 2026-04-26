@@ -1,0 +1,64 @@
+name: SLO Gate
+on:
+  push:
+    branches: [ main, dev-homework ]
+  pull_request:
+    branches: [ main, dev-homework ]
+
+jobs:
+  evaluate_slo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies (if any)
+        run: |
+          # No heavy dependencies needed for simulation
+          pip install --upgrade pip
+
+      - name: Run evaluation with simulated model
+        run: |
+          python tests/slo_gate.py \
+            --model-path models/simulated_checkpoint.pt \
+            --test-data data/test_samples.json \
+            --output metrics.json
+
+      - name: Check SLO – FAD < 3.0
+        run: |
+          python -c "
+          import json
+          with open('metrics.json') as f:
+              m = json.load(f)
+          fad = m['fad']
+          if fad >= 3.0:
+              print(f'FAIL: FAD={fad} >= 3.0')
+              exit(1)
+          else:
+              print(f'PASS: FAD={fad} < 3.0')
+          "
+
+      - name: Check SLO – p99 latency < 2.5s
+        run: |
+          python -c "
+          import json
+          with open('metrics.json') as f:
+              m = json.load(f)
+          latency_ms = m['p99_latency_ms']
+          if latency_ms > 2500:
+              print(f'FAIL: p99 latency={latency_ms}ms > 2500ms')
+              exit(1)
+          else:
+              print(f'PASS: p99 latency={latency_ms}ms <= 2500ms')
+          "
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-metrics
+          path: metrics.json
