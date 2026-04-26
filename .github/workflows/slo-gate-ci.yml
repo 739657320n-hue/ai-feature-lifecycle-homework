@@ -1,12 +1,10 @@
 name: SLO Gate – Latency & Quality (Simulated)
 
 on:
+  push:
+    branches: [ main, dev-homework ]
   pull_request:
-    paths:
-      - 'models/**'
-      - 'preprocessing/**'
-      - 'configs/**'
-      - 'evaluate.py'  # also trigger when evaluation script changes
+    branches: [ main, dev-homework ]
 
 jobs:
   evaluate_slo:
