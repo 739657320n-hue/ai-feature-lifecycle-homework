@@ -1,5 +1,4 @@
-name: SLO Gate – Latency & Quality (Simulated)
-
+name: SLO Gate
 on:
   push:
     branches: [ main, dev-homework ]
