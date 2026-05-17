@@ -36,6 +36,7 @@ def test_block_disallowed_tool():
 def test_parameter_validation():
     """Invalid parameters must be rejected."""
     validator = ToolValidator()
-    ok, msg = validator.validate_call("generate_audio", {"duration_seconds": 200})
+    # 提供必需的 prompt，但 duration_seconds 超出上限
+    ok, msg = validator.validate_call("generate_audio", {"prompt": "test", "duration_seconds": 200})
     assert not ok, "Duration above limit not rejected"
-    assert "above maximum" in msg, "Error message not descriptive"
+    assert "above maximum" in msg, f"Error message not descriptive: {msg}"
