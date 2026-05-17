@@ -1,0 +1,36 @@
+# Tool Allowlist for MusicGen
+# Only these tools can be called by the model.
+allowed_tools:
+  - name: generate_audio
+    description: "Generate an audio file from a text prompt."
+    parameters:
+      prompt:
+        type: string
+        min_length: 1
+        max_length: 500
+      duration_seconds:
+        type: number
+        minimum: 1
+        maximum: 120
+      style:
+        type: string
+        enum: [classical, jazz, electronic, pop, ambient]
+        required: false
+  - name: search_midi
+    description: "Retrieve a MIDI file from the public repository."
+    parameters:
+      query:
+        type: string
+        min_length: 2
+        max_length: 200
+  - name: get_usage_stats
+    description: "Return internal service usage statistics (read‑only)."
+    parameters: {}
+
+# Tools explicitly disallowed (cannot be in allowlist)
+disallowed_tools:
+  - post_to_social
+  - send_email
+  - delete_audio
+  - modify_user_profile
+  - execute_code
