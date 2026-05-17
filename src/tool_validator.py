@@ -5,7 +5,9 @@ from pathlib import Path
 from typing import Any
 
 class ToolValidator:
-    def __init__(self, allowlist_path: str = "../configs/tool_allowlist.yaml"):
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    ALLOWLIST_PATH = PROJECT_ROOT / "configs" / "tool_allowlist.yaml"
+    def __init__(self, allowlist_path: str = str(ALLOWLIST_PATH)):
         with open(allowlist_path) as f:
             self.config = yaml.safe_load(f)
         self.allowed = {t["name"]: t for t in self.config["allowed_tools"]}
