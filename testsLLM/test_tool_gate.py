@@ -24,6 +24,9 @@ def test_write_tools_require_confirmation():
 
 def test_parameter_schema_validation():
     """Invalid parameters must be rejected (from original test)."""
-    ok, msg = validator.validate_call("generate_audio", {"duration_seconds": 200})
+    ok, msg = validator.validate_call(
+        "generate_audio",
+        {"prompt": "test", "duration_seconds": 200}
+    )
     assert not ok
     assert "above maximum" in msg

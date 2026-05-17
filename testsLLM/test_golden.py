@@ -5,7 +5,7 @@ import pytest
 from pathlib import Path
 
 # Load schema
-SCHEMA_PATH = Path(__file__).parent.parent / "Output_Schema.json"
+SCHEMA_PATH = Path(__file__).parent.parent / "specsLLM/Output_Schema.json"
 with open(SCHEMA_PATH) as f:
     SCHEMA = json.load(f)
 
