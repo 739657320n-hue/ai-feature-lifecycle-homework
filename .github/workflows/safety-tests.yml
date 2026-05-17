@@ -24,9 +24,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pytest pyyaml
-          # Optional: install gitleaks
-          wget https://github.com/gitleaks/gitleaks/releases/download/v8.16.0/gitleaks_8.16.0_linux_amd64.tar.gz
-          tar -xzf gitleaks_8.16.0_linux_amd64.tar.gz -C /usr/local/bin
+
+      - name: Install gitleaks (via apt)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y gitleaks
 
       - name: Secret scan with gitleaks
         run: gitleaks detect --source . --no-git --verbose
