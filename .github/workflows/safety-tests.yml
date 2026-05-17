@@ -1,0 +1,38 @@
+name: Safety Tests
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'config/**'
+      - 'tests/**'
+      - 'specs/**'
+
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install pytest pyyaml
+
+      - name: Install gitleaks (via apt)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y gitleaks
+
+      - name: Secret scan with gitleaks
+        run: gitleaks detect --source . --no-git --verbose
+
+      - name: Run pytest safety tests
+        run: |
+          python -m pytest tests/test_safety.py -v
