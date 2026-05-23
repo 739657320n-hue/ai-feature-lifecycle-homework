@@ -1,100 +1,120 @@
 #!/usr/bin/env python3
 """
-Create golden set for HW4 evaluation.
-Simple version - selects samples from HW3 data.
+eval_gate.py - Create golden set for evaluation (pytest version).
+This script generates a synthetic golden dataset used for model evaluation.
 """
 
 import json
 import random
-import os
 from pathlib import Path
 
+# Test data constants
+GENRES = ["pop", "classical", "jazz", "rock"]
+SAMPLES_PER_GENRE = 5
+TOTAL_SAMPLES = len(GENRES) * SAMPLES_PER_GENRE
 
-def create_simple_golden_set():
-    """Create simple golden set from HW3 data"""
-    print("Creating simple golden set for HW4...")
+GOLDEN_DIR = Path("data/golden_set")
+GOLDEN_PATH = GOLDEN_DIR / "golden_samples.jsonl"
+METADATA_PATH = GOLDEN_DIR / "metadata.json"
 
-    # Create golden set directory
-    golden_dir = Path("data/golden_set")
-    golden_dir.mkdir(parents=True, exist_ok=True)
 
-    # Simulate loading HW3 data
-    # In reality, you would load the actual CSV/JSONL files
-    print("Loading HW3 data (simulated)...")
+def create_golden_sample(sample_id: int, genre: str) -> dict:
+    """Create a single golden sample with random notes."""
+    notes = []
+    for note_idx in range(10):
+        notes.append({
+            "pitch": random.randint(60, 72),
+            "start": note_idx * 0.5,
+            "duration": 0.5,
+            "velocity": 80
+        })
 
-    # Create simulated sample data matching HW3 format
-    golden_samples = []
-
-    # Define the same genres as HW3
-    genres = ["pop", "classical", "jazz", "rock"]
-
-    # Create 5 samples per genre (total 20)
-    sample_id = 1
-    for genre in genres:
-        for i in range(5):
-            # Create a simple note sequence
-            notes = []
-            for note_idx in range(10):
-                notes.append({
-                    "pitch": random.randint(60, 72),
-                    "start": note_idx * 0.5,
-                    "duration": 0.5,
-                    "velocity": 80
-                })
-
-            sample = {
-                "golden_id": f"golden_{sample_id:03d}",
-                "segment_id": f"seg_{sample_id:03d}",
-                "genre": genre,
-                "bpm": random.choice([80, 100, 120, 140]),
-                "duration_sec": 5.0,
-                "notes": notes,
-                "is_golden": True
-            }
-
-            golden_samples.append(sample)
-            sample_id += 1
-
-    # Save golden set as JSONL
-    golden_path = golden_dir / "golden_samples.jsonl"
-    with open(golden_path, "w") as f:
-        for sample in golden_samples:
-            f.write(json.dumps(sample) + "\n")
-
-    print(f"Created {len(golden_samples)} golden samples")
-    print(f"Saved to: {golden_path}")
-
-    # Create simple metadata
-    metadata = {
-        "description": "Golden set for HW4 evaluation",
-        "num_samples": len(golden_samples),
-        "genres": genres,
-        "samples_per_genre": 5
+    return {
+        "golden_id": f"golden_{sample_id:03d}",
+        "segment_id": f"seg_{sample_id:03d}",
+        "genre": genre,
+        "bpm": random.choice([80, 100, 120, 140]),
+        "duration_sec": 5.0,
+        "notes": notes,
+        "is_golden": True
     }
 
-    meta_path = golden_dir / "metadata.json"
-    with open(meta_path, "w") as f:
+
+def create_golden_set():
+    """Generate the full golden set and save to disk."""
+    GOLDEN_DIR.mkdir(parents=True, exist_ok=True)
+
+    samples = []
+    sample_id = 1
+    for genre in GENRES:
+        for _ in range(SAMPLES_PER_GENRE):
+            samples.append(create_golden_sample(sample_id, genre))
+            sample_id += 1
+
+    with open(GOLDEN_PATH, "w") as f:
+        for sample in samples:
+            f.write(json.dumps(sample) + "\n")
+
+    metadata = {
+        "description": "Golden set for evaluation",
+        "num_samples": len(samples),
+        "genres": GENRES,
+        "samples_per_genre": SAMPLES_PER_GENRE
+    }
+    with open(METADATA_PATH, "w") as f:
         json.dump(metadata, f, indent=2)
 
-    print(f"Metadata saved to: {meta_path}")
-
-    return golden_samples
+    return samples
 
 
-def main():
-    """Main function"""
-    print("=" * 60)
-    print("HW4 Golden Set Creation")
-    print("=" * 60)
-
-    samples = create_simple_golden_set()
-
-    print("\n" + "=" * 60)
-    print("Golden set created successfully!")
-    print(f"Total samples: {len(samples)}")
-    print("Location: data/golden_set/")
-    print("=" * 60)
+# ---- pytest tests ----
+import pytest
 
 
-if __name__ == "__main__":
-    main()
+class TestGoldenSetCreation:
+    """Tests for golden set creation."""
+
+    @classmethod
+    def setup_class(cls):
+        # Ensure golden set is created before tests
+        cls.samples = create_golden_set()
+
+    def test_golden_set_exists(self):
+        assert GOLDEN_PATH.exists(), "Golden set file not created"
+        assert GOLDEN_PATH.stat().st_size > 0, "Golden set file is empty"
+
+    def test_golden_metadata_exists(self):
+        assert METADATA_PATH.exists(), "Metadata file not created"
+        assert METADATA_PATH.stat().st_size > 0, "Metadata file is empty"
+
+    def test_total_samples_count(self):
+        assert len(self.samples) == TOTAL_SAMPLES, \
+            f"Expected {TOTAL_SAMPLES} samples, got {len(self.samples)}"
+
+    def test_genre_balance(self):
+        from collections import Counter
+        genre_counts = Counter(s["genre"] for s in self.samples)
+        for genre in GENRES:
+            assert genre_counts[genre] == SAMPLES_PER_GENRE, \
+                f"Genre {genre} has {genre_counts.get(genre, 0)} samples, expected {SAMPLES_PER_GENRE}"
+
+    def test_golden_id_format(self):
+        import re
+        pattern = r"^golden_\d{3}$"
+        for s in self.samples:
+            assert re.match(pattern, s["golden_id"]), \
+                f"Invalid golden_id: {s['golden_id']}"
+
+    def test_all_notes_valid(self):
+        for s in self.samples:
+            for note in s["notes"]:
+                assert 0 <= note["pitch"] <= 127
+                assert 0 <= note["start"]
+                assert note["duration"] > 0
+                assert 0 <= note["velocity"] <= 127
+
+    def test_duration_consistent(self):
+        for s in self.samples:
+            max_end = max(n["start"] + n["duration"] for n in s["notes"])
+            assert abs(s["duration_sec"] - max_end) <= 0.5, \
+                f"Sample {s['golden_id']} duration mismatch"

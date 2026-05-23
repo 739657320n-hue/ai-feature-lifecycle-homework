@@ -1,11 +1,10 @@
-name: Music Generation - Evaluation Gate
+name: Evaluation Gate
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev-homework ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   evaluate-models:
@@ -25,31 +24,11 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install Python Dependencies
-        run: |
-          pip install pyyaml pandas pathlib
-          echo "Dependencies installed for simulation"
-
-      # Step 4: Create golden set
-      - name: Create Golden Set
-        run: |
-          echo "Creating golden set for evaluation..."
-          python data/create_golden_set.py
+        run: make setup
 
       # Step 5: Run evaluation gate
       - name: Run Evaluation Gate
-        run: |
-          echo "Running model evaluation gate..."
-          python pipelines/eval_gate.py
-
-      # Step 6: Upload evaluation report
-      - name: Upload Evaluation Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: evaluation-report
-          path: |
-            reports/evaluation_results.json
-            data/golden_set/
+        run: make eval-gate
 
       # Step 7: Generate summary
       - name: Generate Evaluation Summary

@@ -1,12 +1,10 @@
 name: Safety Tests
 
 on:
+  push:
+    branches: [ dev-homework ]
   pull_request:
-    paths:
-      - 'src/**'
-      - 'config/**'
-      - 'tests/**'
-      - 'specs/**'
+    branches: [ main ]
 
 jobs:
   safety:
@@ -22,8 +20,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: |
-          pip install pytest pyyaml
+        run: make setup
 
       - name: Install gitleaks (via apt)
         run: |
@@ -34,5 +31,4 @@ jobs:
         run: gitleaks detect --source . --no-git --verbose
 
       - name: Run pytest safety tests
-        run: |
-          python -m pytest tests/test_safety.py -v
+        run: make safety-tests
