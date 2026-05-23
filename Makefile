@@ -10,7 +10,7 @@ data-check:
 	python -m pytest tests/test_data_checks.py
 
 eval-gate:
-	python -m pytest pipelines/eval_gate.py
+	python pipelines/eval_gate.py -v
 
 safety-tests:
 	python -m pytest tests/test_safety.py -v
