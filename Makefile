@@ -21,5 +21,8 @@ schema-gate:
 tool-gate:
 	python -m pytest testsLLM/test_tool_gate.py -v
 
+redteam-gate:
+	python -m pytest testsLLM/test_redteam.py -v
+
 slo-gate:
 	python -m pytest pipelines/slo_gate.py
