@@ -3,6 +3,7 @@
 allowed_tools:
   - name: generate_audio
     description: "Generate an audio file from a text prompt."
+    confirmation_required: true
     parameters:
       prompt:
         type: string

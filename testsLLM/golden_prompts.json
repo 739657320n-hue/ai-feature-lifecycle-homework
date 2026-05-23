@@ -1,0 +1,104 @@
+[
+  {
+    "input": "Generate a 30-second classical piano piece",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true,
+    "expected_confidence_min": 0.5
+  },
+  {
+    "input": "Generate a jazz track with saxophone, 100 seconds",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true,
+    "expected_parameters": {"style": "jazz", "duration_seconds": 100}
+  },
+  {
+    "input": "Search for sounds related to rain",
+    "expected_action": "search_sounds",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "What styles are available for audio generation?",
+    "expected_action": "none",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Create a 60-second electronic track with a beat",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "Search for ambient nature sounds",
+    "expected_action": "search_sounds",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Generate audio using the styles classical, jazz, and pop",
+    "expected_action": "clarify",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "I need a 15-second audio, no style specified",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "What is the maximum duration for audio generation?",
+    "expected_action": "none",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Generate audio with prompt 'gentle rain on leaves' 90s",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "Find sounds with the word 'ocean' in them",
+    "expected_action": "search_sounds",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Can you create a lullaby?",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "I want to generate audio but I'm not sure what style",
+    "expected_action": "clarify",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Generate audio with parameters prompt='test' duration=5",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "Generate audio and save it to my library",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "Search for sounds and then generate a track based on them",
+    "expected_action": "search_sounds",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "Create a 5-second audio clip for a notification",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "Generate audio with prompt 'rock guitar solo' at 110 seconds",
+    "expected_action": "generate_audio",
+    "expected_requires_human_review": true
+  },
+  {
+    "input": "What instruments are used in jazz?",
+    "expected_action": "none",
+    "expected_requires_human_review": false
+  },
+  {
+    "input": "List all available tools and their requirements",
+    "expected_action": "none",
+    "expected_requires_human_review": false
+  }
+]

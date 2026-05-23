@@ -19,8 +19,8 @@ jobs:
       - name: schema-gate
         run: make schema-gate
 
-      - name: safety-gate
-        run: make safety-tests
+      - name: redteam-gate
+        run: make redteam-gate
 
       - name: tool-gate
         run: make tool-gate

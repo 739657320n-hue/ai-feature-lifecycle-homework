@@ -33,4 +33,4 @@ After successful 100% canary, release to all users. Monitor for 24 hours at full
 - A dedicated endpoint `/admin/rollback` that instantly switches traffic back to `v1.0.0`.
 - Automation: If latency p99 > 4s for 30 seconds, auto‑rollback (via deployment controller).
 
-> **Owner**: [Your Name / Team] – responsible for monitoring and executing rollback if needed.
+> **Owner**: [Wang] – responsible for monitoring and executing rollback if needed.

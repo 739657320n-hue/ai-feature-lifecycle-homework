@@ -1,41 +1,40 @@
 # Evaluation thresholds for music generation models
 
 absolute:
-  # Generation speed (milliseconds for 10-second segment)
+  # Primary metrics (mandatory)
+  pitch_accuracy:
+    min: 0.99          # 99%
+  out_of_key_note_ratio:
+    max: 0.005         # 0.5%
+  chord_similarity:
+    min: 0.90          # 0.90 cosine
+  structural_correlation:
+    min: 0.85          # 0.85
+
+  # Secondary (informational) – not gated
   generation_speed_ms:
-    max: 2000  # Maximum 2 seconds
-    tolerance: 500  # Allow 0.5 seconds more
-
-  # Structure score (0-1)
-  structure_score:
-    min: 0.6  # Minimum acceptable
-    tolerance: 0.1  # Allow 0.1 less
-
-  # Style consistency (0-1)
-  style_consistency:
-    min: 0.5  # Minimum acceptable
-    tolerance: 0.1  # Allow 0.1 less
+    max: 2000          # 2 seconds per segment
+    tolerance: 500     # allow 0.5s more only for soft warning
 
 relative:
-  # Improvement over baseline (as ratio)
-  structure_score:
-    improvement: 0.2  # 20% better than baseline
-
-  style_consistency:
-    improvement: 0.3  # 30% better than baseline
-
-  # No regression in speed
+  # Improvement over baseline (as multiplier)
+  pitch_accuracy:
+    improvement: 1.01          # must be at least 101% of baseline
+  out_of_key_note_ratio:
+    improvement: 0.95          # must be at most 95% of baseline (lower is better)
+  chord_similarity:
+    improvement: 1.02
+  structural_correlation:
+    improvement: 1.02
   generation_speed_ms:
-    no_regression: true  # Should not be slower than baseline
+    no_regression: true        # should not be slower than baseline
 
-# Golden set evaluation
 golden_set:
   minimum_samples: 20
   required_genres: ["pop", "classical", "jazz", "rock"]
   per_genre_samples: 5
 
-# CI/CD behavior
 ci:
-  on_failure: "warn"  # warn, block, or continue
+  on_failure: "block"          # exit 1 if gate fails
   report_format: "json"
   artifact_retention_days: 7

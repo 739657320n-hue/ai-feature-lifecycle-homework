@@ -29,3 +29,6 @@ jobs:
       - name: Run Data Quality Tests
         run: make data-check
 
+      - name: Run tests
+        run: make test
+

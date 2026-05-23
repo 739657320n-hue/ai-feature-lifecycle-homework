@@ -57,6 +57,12 @@ class ToolValidator:
 
         return True, ""
 
+    def requires_confirmation(self, tool_name: str) -> bool:
+        spec = self.allowed.get(tool_name)
+        if spec is None:
+            return False
+        return spec.get("confirmation_required", False)
+
 # Example usage
 if __name__ == "__main__":
     v = ToolValidator()
