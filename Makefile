@@ -22,4 +22,4 @@ tool-gate:
 	python -m pytest testsLLM/test_tool_gate.py -v
 
 slo-gate:
-	python tests/slo_gate.py
+	python pipelines/slo_gate.py
