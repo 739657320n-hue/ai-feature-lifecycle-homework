@@ -1,4 +1,4 @@
-name: LLM Release Gates
+name: LLM Gates
 
 on:
   push:

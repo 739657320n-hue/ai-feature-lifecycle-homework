@@ -1,4 +1,4 @@
-name: Music Generation - Data Pipeline
+name: Data Pipeline
 
 on:
   push:

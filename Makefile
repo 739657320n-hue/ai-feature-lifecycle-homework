@@ -7,10 +7,10 @@ test:
 	python -m pytest tests/ -v --tb=short --disable-warnings
 
 data-check:
-	python tests/test_data.py
+	python tests/test_data_checks.py
 
 eval-gate:
-	python src/eval_gate.py
+	python pipelines/eval_gate.py
 
 safety-tests:
 	python -m pytest tests/test_safety.py -v
