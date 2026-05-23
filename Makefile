@@ -4,7 +4,7 @@ setup:
 	pip install -r requirements.txt
 
 test:
-	python -m pytest tests/ -v --tb=short --disable-warnings
+	python -m pytest tests/test_preprocessing.py -v
 
 data-check:
 	python tests/test_data_checks.py

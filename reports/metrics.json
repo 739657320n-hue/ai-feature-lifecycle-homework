@@ -1,0 +1,7 @@
+{
+  "pitch_accuracy": 0.993,
+  "out_of_key_note_ratio": 0.003,
+  "chord_similarity": 0.91,
+  "structural_correlation": 0.87,
+  "generation_speed_ms": 1200.0
+}
