@@ -7,10 +7,10 @@ test:
 	python -m pytest tests/test_preprocessing.py -v
 
 data-check:
-	python tests/test_data_checks.py
+	python -m pytest tests/test_data_checks.py
 
 eval-gate:
-	python pipelines/eval_gate.py
+	python -m pytest pipelines/eval_gate.py
 
 safety-tests:
 	python -m pytest tests/test_safety.py -v
@@ -22,4 +22,4 @@ tool-gate:
 	python -m pytest testsLLM/test_tool_gate.py -v
 
 slo-gate:
-	python pipelines/slo_gate.py
+	python -m pytest pipelines/slo_gate.py
