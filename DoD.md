@@ -1,25 +1,49 @@
 # Definition of Done (DoD)
-This document defines the mandatory completion criteria for the AI Feature Lifecycle Management System course assignment. All criteria must be fully met to mark the deliverable as complete and ready for review.
+This document defines the mandatory completion criteria for the AI Feature Lifecycle Management System course assignment (HW1). All criteria must be fully met before merging into `main`.
 
 ## Repository & Documentation Compliance
-- [ ] Public GitHub repository is created and fully accessible with a standardized directory structure
-- [ ] `specs` folder is established in the repository root, containing all 6 required specification documents: PRD.md, SRS.md, DataSpec.md, EvalPlan.md, Monitoring.md, RiskSafety.md
-- [ ] All specification documents follow the required standard title structure and naming conventions
-- [ ] This DoD.md file is stored in the root directory of the repository
+- [ ] Public/private GitHub repository is created with a standardized directory structure (`specs/`, `src/`, `tests/`, `data/`, `reports/`, `configs/`, `.github/workflows/`).
+- [ ] `specs/` folder contains all 6 required specification documents: `PRD.md`, `SRS.md`, `DataSpec.md`, `EvalPlan.md`, `Monitoring.md`, `RiskSafety.md`.
+- [ ] Each specification document follows the required title structure (Heading 1 + numbered sections).
+- [ ] This `DoD.md` file is stored in the repository root.
 
 ## Development & Testing Standards
-- [ ] Valid pytest test cases are created and stored in the repository, with all test cases passing successfully
-- [ ] Test code is complete, runnable, and meets basic code quality requirements
-- [ ] No broken or invalid code is committed to the main branch
+- [ ] `pytest` test cases exist in `tests/` covering at least:
+  - Unit tests for preprocessing and generation logic.
+  - Data validation tests (`make data-check`).
+  - Evaluation gate tests (`make eval-gate`).
+- [ ] All test cases pass successfully (verified by CI).
+- [ ] Test code is complete, runnable, and free of broken imports.
 
 ## CI/CD & Automation Requirements
-- [ ] GitHub Actions CI workflow is properly configured in the repository
-- [ ] CI pipeline triggers automatically on code push and pull request events
-- [ ] All CI checks pass successfully, with a green status checkmark displayed in the repository
-- [ ] CI pipeline covers full required steps: environment setup, dependency installation, and automated test execution
+- [ ] GitHub Actions CI workflow is configured in `.github/workflows/ci.yml`.
+- [ ] CI triggers automatically on push and pull request events.
+- [ ] CI pipeline executes three gates:
+  - `make test` — unit tests pass.
+  - `make data-check` — data schema and quality checks pass (report saved as artifact).
+  - `make eval-gate` — **Pitch Accuracy ≥ 99%** on the golden set; failure blocks merge.
+- [ ] All CI checks pass (green status) before merge.
 
 ## Version Control & PR Delivery
-- [ ] All code and document changes are tracked via Git with clear, meaningful commit records
-- [ ] A dedicated development branch is created for assignment delivery, separate from the main branch
-- [ ] A formal Pull Request (PR) is created to merge the development branch into the main branch
-- [ ] PR includes a clear description of all delivered content, with all CI checks passed and ready for review
+- [ ] All changes tracked via Git with clear commit messages.
+- [ ] A dedicated development branch (e.g., `feature/hw1-submission`) is created; PR targets `main`.
+- [ ] PR description includes a summary of deliverables, checklist status, and link to passing CI run.
+- [ ] CI checks are green; ready for instructor review.
+
+## Project-Specific Release Criteria
+- **Pitch Accuracy**: ≥ 99% (verified by `make eval-gate` in CI).
+- **Out-of-key Note Ratio**: ≤ 0.5% (reported in eval report artifact).
+- **Chord Similarity**: ≥ 0.90 (checked in CI golden set).
+- **Generation Latency**: ≤ 2s per 8-bar phrase (logged in CI, alert if exceeded).
+- **Red-team tests**: All adversarial prompts produce safe refusal or fallback (test suite in `tests/test_redteam.py`).
+
+## How to Verify Each Item
+| Item | Verification Location |
+|------|-----------------------|
+| Repo structure | GitHub file tree |
+| Specs present | `specs/` directory |
+| Unit tests pass | `make test` (CI log) |
+| Data check passes | `make data-check` (report artifact) |
+| Eval gate passes | `make eval-gate` (report artifact) |
+| Red-team passes | `pytest tests/test_redteam.py` (CI log) |
+| CI green | GitHub Actions status badge |

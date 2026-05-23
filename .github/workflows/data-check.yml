@@ -1,0 +1,31 @@
+name: Music Generation - Data Pipeline
+
+on:
+  push:
+    branches: [ dev-homework ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  data-pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      # Step 2: Setup Python
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: make setup
+
+      # Step 4: Run data quality checks
+      - name: Run Data Quality Tests
+        run: make data-check
+

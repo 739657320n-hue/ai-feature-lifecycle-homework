@@ -1,28 +1,26 @@
 name: LLM Release Gates
 
-on: [pull_request]
+on:
+  push:
+    branches: [ dev-homework ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  schema-gate:
+  llm-gate:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: pip install pytest jsonschema pyyaml
-      - name: Schema Validation Gate
-        run: python -m pytest testsLLM/test_golden.py -v
 
-  safety-gate:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: pip install pytest pyyaml
-      - name: Safety / Refusal Gate
-        run: python -m pytest testsLLM/test_redteam.py -v
 
-  tool-gate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: pip install pytest pyyaml
-      - name: Tool Use Gate
-        run: python -m pytest testsLLM/test_tool_gate.py -v
+      - name: Install Python Dependencies
+        run: make setup
+
+      - name: schema-gate
+        run: make schema-gate
+
+      - name: safety-gate
+        run: make safety-tests
+
+      - name: tool-gate
+        run: make tool-gate

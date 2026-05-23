@@ -1,22 +1,21 @@
-# Risk and Safety Specification
+# Risk, Safety & Privacy
+
 ## 1. Misuse Cases
-- Think from an attacker's perspective, provide red team prompts and misuse test suite
-- Document expected rejection behavior
+- User requests explicit/offensive lyrics (model only outputs notes, but still reject with refusal)
+- Attempt to generate music that mimics copyrighted works → risk flag
 
-## 2. Mitigations
-- Rate limiting + human review queue
-- Develop mitigation checklists and monitoring signals for each risk
+## 2. PII Handling
+- Input prompts may contain text, but model processes only musical parameters, no personal data
+- Output MIDI files contain no audio or identifiable information
 
-## 3. PII Handling
-- Redact and minimize personal identifiable information (Microsoft Presidio can be used)
-- Implement log cleanup pipeline with supporting tests
-- Ensure PII does not appear in logs or model outputs
+## 3. High-Cost Errors
+- **Must-not-happen**: generate music with extreme dissonance (e.g., all out-of-key notes)
+- Mitigation: note-level refinement module + threshold gate
 
-## 4. Auditing
-- Implement decision tracing without data leakage
-- Include request ID and structured logs
-- Document audit log format in the SRS
+## 4. Human-in-the-Loop
+- Generated pieces above rating threshold require manual review before public sharing
+- Audit log: every generation is recorded with request ID, timestamp, metrics
 
-## 5. High-Cost Errors
-- Clearly define unacceptable outcomes
-- The "must never happen" list shall be bound to acceptance criteria and CI gates
+## 5. Red-Team Tests (CI)
+- Test prompts that try to bypass emotion contraints → must return refusal or safe fallback
+- All red-team tests must pass in CI
